@@ -9,7 +9,7 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
 {
     protected $url;
     protected $body;
-    protected $sslKeyificate;
+    protected $sslKey;
     protected $debug = false;
     protected $debugToFile;
 
@@ -17,18 +17,18 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
      * TranzWarePaymentGatewayHTTPClient constructor.
      * @param string $url
      * @param null $body
-     * @param null $sslKey
+     * @param null $ssl
      */
     public function __construct
     (
         $url,
         $body = null,
-        $sslKey = null
+        $ssl = null
     )
     {
         $this->url = $url;
         $this->body = $body;
-        $this->sslKey = $sslKey;
+        $this->sslKey = $ssl;
     }
 
     /**
@@ -65,9 +65,9 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->body);
 
-        if ($this->sslKeyificate) {
-            $sslKey = $this->sslKeyificate['key'];
-            $sslKeyPass = $this->sslKeyificate['keyPass'];
+        if ($this->ssl) {
+            $sslKey = $this->ssl['key'];
+            $sslKeyPass = $this->ssl['keyPass'];
             curl_setopt($ch, CURLOPT_SSLKEY, $sslKey);
             curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $sslKeyPass);
         }
