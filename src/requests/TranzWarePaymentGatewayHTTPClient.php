@@ -66,10 +66,10 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->body);
 
         if ($this->ssl) {
-            $sslKey = $this->ssl['key'];
-            $sslKeyPass = $this->ssl['keyPass'];
-            curl_setopt($ch, CURLOPT_SSLKEY, $sslKey);
-            curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $sslKeyPass);
+            $sslCert = $this->ssl['key'];
+            $sslCertPass = $this->ssl['keyPass'];
+            curl_setopt($ch, CURLOPT_SSLCERT, $sslCert);
+            curl_setopt($ch, CURLOPT_SSLCERTPASSWD, $sslCertPass);
         }
 
         $output = curl_exec($ch);
