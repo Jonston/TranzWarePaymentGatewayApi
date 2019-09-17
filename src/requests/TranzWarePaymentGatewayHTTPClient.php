@@ -9,7 +9,7 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
 {
     protected $url;
     protected $body;
-    protected $sslKey;
+    protected $ssl;
     protected $debug = false;
     protected $debugToFile;
 
@@ -28,7 +28,7 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
     {
         $this->url = $url;
         $this->body = $body;
-        $this->sslKey = $ssl;
+        $this->ssl = $ssl;
     }
 
     /**
