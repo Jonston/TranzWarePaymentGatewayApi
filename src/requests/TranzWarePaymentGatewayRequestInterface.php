@@ -20,10 +20,9 @@ interface TranzWarePaymentGatewayRequestInterface
      * Sets ssl certificate file path required in request
      *
      * @param string $cert
-     * @param string $key
-     * @param string $keyPass
+     * @param string $certPass
      *
      * @return void
      */
-    public function setSslCertificate($cert, $key, $keyPass = '');
+    public function setSslCertificate($cert, $certPass = '');
 }

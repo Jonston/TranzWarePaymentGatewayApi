@@ -56,18 +56,18 @@ class TranzWarePaymentGatewayRequestFactory implements TranzWarePaymentGatewayRe
         $this->setUrlProvider($urlProvider);
     }
 
-    private $sslCertificate, $sslKey, $sslKeyPass;
+    private $sslKey, $sslKeyPass;
 
     /**
-     * @param string $certFile  Path to certificate
-     * @param string $keyFile   Path to private key
-     * @param string $keyPass   Password provided in creation of private key
+     * @param $sslKeyFile
+     * @param string $sslKeyPass
+     *
+     * @return void
      */
-    final public function setCertificate($certFile, $keyFile, $keyPass = '')
+    final public function setCertificate($sslKeyFile, $sslKeyPass = '')
     {
-        $this->sslKey = $keyFile;
-        $this->sslKeyPass = $keyPass;
-        $this->sslCertificate = $certFile;
+        $this->sslKey = $sslKeyFile;
+        $this->sslKeyPass = $sslKeyPass;
     }
 
     protected $MERCHANT_ID;
@@ -132,7 +132,7 @@ class TranzWarePaymentGatewayRequestFactory implements TranzWarePaymentGatewayRe
             $this->LANG,
             $this->debug ? $this->debugFile : null
         );
-        $request->setSslCertificate($this->sslCertificate, $this->sslKey, $this->sslKeyPass);
+        $request->setSslCertificate($this->sslKey, $this->sslKeyPass);
         return $request;
     }
 
@@ -176,7 +176,7 @@ class TranzWarePaymentGatewayRequestFactory implements TranzWarePaymentGatewayRe
             $this->LANG,
             $this->debug ? $this->debugFile : null
         );
-        $request->setSslCertificate($this->sslCertificate, $this->sslKey, $this->sslKeyPass);
+        $request->setSslCertificate($this->sslKey, $this->sslKeyPass);
         return $request;
     }
 }

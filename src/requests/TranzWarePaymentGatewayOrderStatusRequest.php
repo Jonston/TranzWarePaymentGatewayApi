@@ -30,9 +30,8 @@ class TranzWarePaymentGatewayOrderStatusRequest implements TranzWarePaymentGatew
     public function execute()
     {
         $ssl = [
-            'key' => $this->sslKey,
-            'keyPass' => $this->sslKeyPass,
-            'cert' => $this->sslCertificate
+            'cert'      => $this->sslKey,
+            'certPass'  => $this->sslKeyPass
         ];
         $httpClient =
             new TranzWarePaymentGatewayHTTPClient($this->requestAttributes['requestUrl'], $this->getRequestBody(), $ssl);
@@ -52,12 +51,11 @@ class TranzWarePaymentGatewayOrderStatusRequest implements TranzWarePaymentGatew
         return $body;
     }
 
-    private $sslKey, $sslKeyPass, $sslCertificate;
+    private $sslKey, $sslKeyPass;
 
-    final public function setSslCertificate($cert, $key, $keyPass = '')
+    final public function setSslCertificate($sslKey, $sslKeyPass = '')
     {
-        $this->sslKey = $key;
-        $this->sslKeyPass = $keyPass;
-        $this->sslCertificate = $cert;
+        $this->sslKey = $sslKey;
+        $this->sslKeyPass = $sslKeyPass;
     }
 }

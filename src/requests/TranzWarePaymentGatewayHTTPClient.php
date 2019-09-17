@@ -9,29 +9,33 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
 {
     protected $url;
     protected $body;
-    protected $sslCertificate;
+    protected $sslKeyificate;
     protected $debug = false;
     protected $debugToFile;
 
     /**
      * TranzWarePaymentGatewayHTTPClient constructor.
-     *
-     * @param string $url              Destination request url
-     * @param string $body             Body that will be delivered to destination
-     * @param array  $sslCertificate   Array of 'key', 'keyPass', 'cert'  values
+     * @param string $url
+     * @param null $body
+     * @param null $sslKey
      */
     public function __construct
     (
         $url,
         $body = null,
-        $sslCertificate = null
+        $sslKey = null
     )
     {
         $this->url = $url;
         $this->body = $body;
-        $this->sslCertificate = $sslCertificate;
+        $this->sslKey = $sslKey;
     }
 
+    /**
+     * Set debug to log file
+     *
+     * @param string $path_to_file
+     */
     final public function setDebugToFile($path_to_file)
     {
         $this->debug = true;
@@ -52,8 +56,6 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
         if ($this->debug) {
             curl_setopt($ch, CURLOPT_STDERR, fopen($this->debugToFile, 'w+'));
         }
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -63,15 +65,11 @@ class TranzWarePaymentGatewayHTTPClient implements TranzWarePaymentGatewayHTTPCl
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->body);
 
-        if ($this->sslCertificate) {
-            $key = $this->sslCertificate['key'];
-            $keyPass = $this->sslCertificate['keyPass'];
-            $cert = $this->sslCertificate['cert'];
-            curl_setopt($ch, CURLOPT_SSLCERT, $cert);
-            curl_setopt($ch, CURLOPT_SSLKEY, $key);
-            curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $keyPass);
-            curl_setopt($ch, CURLOPT_CAINFO, $cert);
-            curl_setopt($ch, CURLOPT_CAPATH, $cert);
+        if ($this->sslKeyificate) {
+            $sslKey = $this->sslKeyificate['key'];
+            $sslKeyPass = $this->sslKeyificate['keyPass'];
+            curl_setopt($ch, CURLOPT_SSLKEY, $sslKey);
+            curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $sslKeyPass);
         }
 
         $output = curl_exec($ch);

@@ -39,12 +39,17 @@ class TranzWarePaymentGatewayOrderRequest implements TranzWarePaymentGatewayRequ
         $this->debugToFile = $debugToFile;
     }
 
+    /**
+     * Run HTTP client request
+     *
+     * @return TranzWarePaymentGatewayOrderRequestResult
+     */
     public function execute()
     {
         $ssl = [
             'key' => $this->sslKey,
             'keyPass' => $this->sslKeyPass,
-            'cert' => $this->sslCertificate
+            'cert' => $this->sslKeyificate
         ];
         $httpClient =
             new TranzWarePaymentGatewayHTTPClient($this->requestAttributes['requestUrl'], $this->getRequestBody(), $ssl);
@@ -54,6 +59,11 @@ class TranzWarePaymentGatewayOrderRequest implements TranzWarePaymentGatewayRequ
         return new TranzWarePaymentGatewayOrderRequestResult($httpClient->execute());
     }
 
+    /**
+     * Get request body
+     *
+     * @return string
+     */
     final private function getRequestBody()
     {
         $orderType = OrderTypes::fromString($this->requestAttributes['orderType']);
@@ -65,12 +75,19 @@ class TranzWarePaymentGatewayOrderRequest implements TranzWarePaymentGatewayRequ
         return $body;
     }
 
-    private $sslKey, $sslKeyPass, $sslCertificate;
+    private $sslKey, $sslKeyPass;
 
-    final public function setSslCertificate($cert, $key, $keyPass = '')
+    /**
+     * Set ssl certificate
+     *
+     * @param string $sslKey
+     * @param string $sslKeyPass
+     *
+     * @return void
+     */
+    final public function setSslCertificate($sslKey, $sslKeyPass = '')
     {
-        $this->sslKey = $key;
-        $this->sslKeyPass = $keyPass;
-        $this->sslCertificate = $cert;
+        $this->sslKey = $sslKey;
+        $this->sslKeyPass = $sslKeyPass;
     }
 }
