@@ -47,9 +47,8 @@ class TranzWarePaymentGatewayOrderRequest implements TranzWarePaymentGatewayRequ
     public function execute()
     {
         $ssl = [
-            'key' => $this->sslCert,
-            'keyPass' => $this->sslCertPass,
-            'cert' => $this->sslCertificate
+            'cert'      => $this->sslCert,
+            'certPass'  => $this->sslCertPass,
         ];
         $httpClient =
             new TranzWarePaymentGatewayHTTPClient($this->requestAttributes['requestUrl'], $this->getRequestBody(), $ssl);
